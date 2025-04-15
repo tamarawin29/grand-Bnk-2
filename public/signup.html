@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Grand Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      background-color: var(--grand-red);
+    }
+    
+    .signup-container {
+      max-width: 414px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    .signup-logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .signup-logo-icon {
+      width: 60px;
+      height: 60px;
+      background-color: var(--grand-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 30px;
+      font-weight: bold;
+      color: var(--grand-red);
+    }
+    
+    .signup-logo-text {
+      color: var(--grand-white);
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .signup-form {
+      background-color: var(--grand-white);
+      border-radius: 10px;
+      padding: 30px;
+    }
+    
+    .form-title {
+      color: var(--grand-red);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .form-button {
+      background-color: var(--grand-red);
+    }
+    
+    .form-link {
+      color: var(--grand-red);
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-bar-left">
+        <span>23:50</span>
+        <div class="language-selector">
+          <img src="https://via.placeholder.com/20x14/ff0000/ffffff?text=UK" alt="UK Flag" class="language-flag">
+          <span>English</span>
+        </div>
+      </div>
+      <div class="status-bar-right">
+        <i class="fas fa-signal"></i>
+        <span>LTE</span>
+        <span>23%</span>
+      </div>
+    </div>
+
+    <!-- Logo -->
+    <div class="signup-logo">
+      <div class="signup-logo-icon">GB</div>
+      <div class="signup-logo-text">GRAND BANK</div>
+    </div>
+
+    <!-- Signup Form -->
+    <section class="signup-form">
+      <h1 class="form-title">Create Account</h1>
+      
+      <div class="error-message" id="error-message"></div>
+      
+      <form id="signup-form">
+        <div class="form-group">
+          <label class="form-label" for="firstName">First Name</label>
+          <input type="text" class="form-input" id="firstName" placeholder="Enter your first name" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="lastName">Last Name</label>
+          <input type="text" class="form-input" id="lastName" placeholder="Enter your last name" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input type="email" class="form-input" id="email" placeholder="Enter your email" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" class="form-input" id="password" placeholder="Create a password" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="confirmPassword">Confirm Password</label>
+          <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm your password" required>
+        </div>
+        
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="terms" required>
+          <label class="form-check-label" for="terms">I agree to the Terms & Conditions</label>
+        </div>
+        
+        <button type="submit" class="form-button" id="signup-btn">Create Account</button>
+        
+        <a href="login.html" class="form-link">Already have an account? Sign In</a>
+      </form>
+    </section>
+  </div>
+
+  <script src="js/signup.js"></script>
+</body>
+</html>

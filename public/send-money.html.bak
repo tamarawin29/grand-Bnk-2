@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Money - Grand Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="mobile-container">
+
+    <!-- Header -->
+    <header class="grand-header">
+      <div class="grand-logo">
+        <img src="images.png" alt="Grand Bank Logo">
+      </div>
+      <div class="profile-pic">
+        <img src="https://via.placeholder.com/40x40/cccccc/666666?text=User" alt="Profile Picture">
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="grand-content">
+      <!-- Send Money Form -->
+      <section class="send-money-form">
+        <div class="error-message" id="error-message"></div>
+        
+        <div class="form-group">
+          <label class="form-label">From</label>
+          <select class="form-select" id="from-account">
+            <option value="checking">Savings Account</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">To (Account Number)</label>
+          <input type="text" class="form-input" id="recipient-account" placeholder="Enter recipient's account number" required>
+          <div class="recipient-name" id="recipient-name-display"></div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Amount</label>
+          <div class="input-with-icon">
+            <i class="fas fa-dollar-sign"></i>
+            <input type="number" class="form-input" id="amount" placeholder="0.00" step="0.01" min="0.01" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Note (Optional)</label>
+          <input type="text" class="form-input" id="note" placeholder="What's this for?">
+        </div>
+        
+        <button type="button" class="form-button" id="send-money-btn">Send Money</button>
+      </section>
+    </main>
+
+    <!-- Transaction Code Modal -->
+    <div class="modal" id="transaction-code-modal">
+      <div class="modal-content">
+        <div class="modal-title">Enter Transaction Code</div>
+        <div class="modal-message">To complete this transaction, please enter the transaction code.</div>
+        
+        <div class="form-group">
+          <input type="text" class="form-input" id="transaction-code" placeholder="Enter transaction code" required>
+        </div>
+        
+        <div class="error-message" id="modal-error-message"></div>
+        
+        <button type="button" class="form-button" id="confirm-transaction-btn">Confirm Transaction</button>
+      </div>
+    </div>
+    
+    <!-- Coming Soon Modal -->
+    <div class="modal" id="coming-soon-modal">
+      <div class="modal-content">
+        <div class="modal-title">Coming Soon!</div>
+        <div class="modal-message">This feature is currently under development and will be available soon.</div>
+        <button type="button" class="form-button" id="close-modal-btn">Close</button>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-item settings">
+        <i class="fas fa-cog"></i>
+        <div class="nav-text">Settings</div>
+      </div>
+      <div class="nav-item" id="nav-notifications">
+        <i class="fas fa-bell"></i>
+        <div class="nav-text">Notifications</div>
+      </div>
+      <div class="nav-item" id="nav-home">
+        <i class="fas fa-home"></i>
+        <div class="nav-text">Home</div>
+      </div>
+      <div class="nav-item" id="nav-support">
+        <i class="fas fa-headset"></i>
+        <div class="nav-text">Support</div>
+      </div>
+      <div class="nav-item" id="nav-logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <div class="nav-text">Logout</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Get user data from localStorage
+      const userString = localStorage.getItem("user");
+      let user = null;
+
+      if (userString) {
+        try {
+          user = JSON.parse(userString);
+
+          // Update from account select with balance
+          const fromAccountSelect = document.getElementById("from-account");
+          if (fromAccountSelect && user.balance !== undefined) {
+            const formattedBalance = user.balance.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            });
+            fromAccountSelect.innerHTML = `<option value="checking">Savings Account - $${formattedBalance}</option>`;
+          }
+        } catch (e) {
+          console.error("Error parsing user data:", e);
+        }
+      }
+
+      // Handle recipient account number input to auto-fetch recipient name
+      const recipientAccountInput = document.getElementById("recipient-account");
+      const recipientNameDisplay = document.getElementById("recipient-name-display");
+
+      if (recipientAccountInput) {
+        recipientAccountInput.addEventListener("blur", () => {
+          const accountNumber = recipientAccountInput.value.trim();
+          if (accountNumber) {
+            // Fetch users to find the recipient
+            fetch("/api/users")
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.success && data.users) {
+                  const recipient = data.users.find((u) => u.accountNumber === accountNumber);
+                  if (recipient && recipientNameDisplay) {
+                    recipientNameDisplay.textContent = recipient.name;
+                    recipientNameDisplay.style.display = "block";
+                  } else if (recipientNameDisplay) {
+                    recipientNameDisplay.textContent = "Recipient not found";
+                    recipientNameDisplay.style.display = "block";
+                  }
+                }
+              })
+              .catch((error) => {
+                console.error("Error fetching users:", error);
+              });
+          } else if (recipientNameDisplay) {
+            recipientNameDisplay.style.display = "none";
+          }
+        });
+      }
+
+      // Handle send money button
+      const sendMoneyBtn = document.getElementById("send-money-btn");
+      const amountInput = document.getElementById("amount");
+      const noteInput = document.getElementById("note");
+      const errorMessage = document.getElementById("error-message");
+      const transactionCodeModal = document.getElementById("transaction-code-modal");
+
+      if (sendMoneyBtn) {
+        sendMoneyBtn.addEventListener("click", () => {
+          // Validate inputs
+          if (!recipientAccountInput.value) {
+            errorMessage.textContent = "Please enter a recipient account number";
+            errorMessage.style.display = "block";
+            return;
+          }
+
+          if (!amountInput.value || Number(amountInput.value) <= 0) {
+            errorMessage.textContent = "Please enter a valid amount";
+            errorMessage.style.display = "block";
+            return;
+          }
+
+          // Check if user has enough balance
+          if (user && user.balance < Number(amountInput.value)) {
+            errorMessage.textContent = "Insufficient funds";
+            errorMessage.style.display = "block";
+            return;
+          }
+
+          // Show transaction code modal
+          if (transactionCodeModal) {
+            transactionCodeModal.classList.add("active");
+          }
+        });
+      }
+
+      // Handle confirm transaction button
+      const confirmTransactionBtn = document.getElementById("confirm-transaction-btn");
+      const transactionCodeInput = document.getElementById("transaction-code");
+      const modalErrorMessage = document.getElementById("modal-error-message");
+
+      if (confirmTransactionBtn) {
+        confirmTransactionBtn.addEventListener("click", () => {
+          // Validate transaction code
+          if (!transactionCodeInput.value) {
+            modalErrorMessage.textContent = "Please enter the transaction code";
+            modalErrorMessage.style.display = "block";
+            return;
+          }
+
+          // Check if transaction code is correct (for demo purposes, we'll use a fixed code)
+          if (transactionCodeInput.value !== "123456") {
+            modalErrorMessage.textContent = "Invalid transaction code. Please try again.";
+            modalErrorMessage.style.display = "block";
+            return;
+          }
+
+          // Process the transaction
+          const amount = Number(amountInput.value);
+          const recipientAccount = recipientAccountInput.value;
+          const note = noteInput.value;
+
+          // Send transaction request to server
+          fetch("/api/transactions/send", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              senderAccountNumber: user.accountNumber,
+              recipientAccountNumber: recipientAccount,
+              amount: amount,
+              note: note,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                // Update user balance in localStorage
+                user.balance -= amount;
+                localStorage.setItem("user", JSON.stringify(user));
+
+                // Save transaction data for receipt
+                localStorage.setItem("lastTransaction", JSON.stringify(data.transaction));
+
+                // Redirect to confirmation page
+                window.location.href = "confirmation.html";
+              } else {
+                // Hide modal
+                transactionCodeModal.classList.remove("active");
+
+                // Show error message
+                errorMessage.textContent = data.message || "Transaction failed. Please try again.";
+                errorMessage.style.display = "block";
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+
+              // Hide modal
+              transactionCodeModal.classList.remove("active");
+
+              // Show error message
+              errorMessage.textContent = "An error occurred. Please try again.";
+              errorMessage.style.display = "block";
+            });
+        });
+      }
+
+      // Handle bottom navigation
+      const navHome = document.getElementById("nav-home");
+      const navNotifications = document.getElementById("nav-notifications");
+      const navLogout = document.getElementById("nav-logout");
+      const navSupport = document.getElementById("nav-support");
+      
+      if (navHome) {
+        navHome.addEventListener("click", () => {
+          window.location.href = "dashboard.html";
+        });
+      }
+      
+      if (navNotifications) {
+        navNotifications.addEventListener("click", () => {
+          window.location.href = "transactions.html";
+        });
+      }
+      
+      if (navLogout) {
+        navLogout.addEventListener("click", () => {
+          localStorage.removeItem("isLoggedIn");
+          localStorage.removeItem("user");
+          window.location.href = "login.html";
+        });
+      }
+      
+      if (navSupport) {
+        navSupport.addEventListener("click", () => {
+          document.getElementById("coming-soon-modal").classList.add("active");
+        });
+      }
+
+      // Close coming soon modal
+      const closeModalBtn = document.getElementById("close-modal-btn");
+      if (closeModalBtn) {
+        closeModalBtn.addEventListener("click", () => {
+          document.getElementById("coming-soon-modal").classList.remove("active");
+        });
+      }
+    });
+  </script>
+</body>
+</html>

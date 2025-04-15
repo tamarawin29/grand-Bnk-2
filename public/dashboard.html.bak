@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grand Bank - Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="mobile-container">
+    <!-- Header -->
+    <header class="grand-header">
+      <div class="grand-logo">
+        <img src="images.png" alt="Grand Bank Logo">
+        <div class="grand-logo-text">GRAND BANK</div>
+      </div>
+      <div class="profile-pic" id="profile-btn">
+        <img src="https://via.placeholder.com/40x40/cccccc/666666?text=User" alt="Profile Picture" id="profile-image">
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="grand-content">
+      <!-- Balance Card -->
+      <div class="balance-card">
+        <div class="balance-label">SAVINGS</div>
+        <div class="balance-amount" id="balance-display">$0.00</div>
+        <div class="account-number-display">Account:
+        <span id="account-number">0000000000</span>
+        </div>
+        <div class="credit-debit-info">
+          <div class="credit-info">
+            <div class="info-label">TOTAL CREDIT</div>
+            <div class="info-value" id="total-credit">$0.00</div>
+            <div class="info-label" id="credit-date">FEB. 2025</div>
+          </div>
+          <div class="debit-info">
+            <div class="info-label">TOTAL DEBIT</div>
+            <div class="info-value" id="total-debit">$0.00</div>
+            <div class="info-label" id="debit-date">FEB. 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menu Grid -->
+      <div class="menu-grid">
+        <div class="menu-item" id="wire-transfer-feature">
+          <div class="menu-icon">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <div class="menu-label">Wire Transfer</div>
+        </div>
+        
+        <div class="menu-item" id="local-transfer-feature">
+          <div class="menu-icon">
+            <i class="fas fa-paper-plane"></i>
+          </div>
+          <div class="menu-label">Local Transfer</div>
+        </div>
+        
+        <div class="menu-item" id="internal-transfer-feature">
+          <div class="menu-icon">
+            <i class="fas fa-university"></i>
+          </div>
+          <div class="menu-label">Internal Transfer</div>
+        </div>
+        
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fab fa-bitcoin"></i>
+          </div>
+          <div class="menu-label">Buy Crypto</div>
+        </div>
+        
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-file-invoice"></i>
+          </div>
+          <div class="menu-label">Pay Bills</div>
+        </div>
+        
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <div class="menu-label">Add Beneficiary</div>
+        </div>
+        
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <div class="menu-label">Card Deposit</div>
+        </div>
+        
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fab fa-bitcoin"></i>
+          </div>
+          <div class="menu-label">Crypto Deposit</div>
+        </div>
+        
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-money-check"></i>
+          </div>
+          <div class="menu-label">Check Deposit</div>
+        </div>
+        
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-piggy-bank"></i>
+          </div>
+          <div class="menu-label">Savings Statement</div>
+        </div>
+        
+        <div class="menu-item">
+          <div class="menu-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="menu-label">Checking Statement</div>
+        </div>
+        
+        <div class="menu-item" id="transactions-feature">
+          <div class="menu-icon">
+            <i class="fas fa-bell"></i>
+          </div>
+          <div class="menu-label">Elite Alerts</div>
+        </div>
+      </div>
+      
+      <!-- Elite Cards Section -->
+      <div class="elite-cards-section">
+        <div class="section-header">Elite Cards</div>
+        <div class="card-display">
+          <div class="card-chip"></div>
+          <div class="card-number" id="card-number">4716 XXXX XXXX 3687</div>
+          <div class="card-details">
+            <div class="card-valid">
+              <div>VALID THRU</div>
+              <div>02/28</div>
+            </div>
+            <div class="card-holder" id="card-holder">CARDHOLDER</div>
+          </div>
+          <div class="card-logo">
+            <img src="https://via.placeholder.com/40x40/ffffff/ff0033?text=GB" alt="Grand Bank Logo">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Elite Tips Section -->
+      <div class="elite-tips-section">
+        <div class="section-header">Elite Tips</div>
+        
+        <div class="tip-item">
+          <div class="tip-icon yellow">
+            <i class="fas fa-piggy-bank"></i>
+          </div>
+          <div class="tip-content">
+            <div class="tip-title">Auto Save</div>
+            <div class="tip-description">Set a goal, save automatically with elite financial trust bank's Auto Save and track your progress.</div>
+          </div>
+        </div>
+        
+        <div class="tip-item">
+          <div class="tip-icon green">
+            <i class="fas fa-wallet"></i>
+          </div>
+          <div class="tip-content">
+            <div class="tip-title">Budget</div>
+            <div class="tip-description">Check in with your budget and stay on top of your spending</div>
+          </div>
+        </div>
+        
+        <div class="tip-item">
+          <div class="tip-icon blue">
+            <i class="fas fa-home"></i>
+          </div>
+          <div class="tip-content">
+            <div class="tip-title">Home Option</div>
+            <div class="tip-description">Your home purchase, refinance and insights right under one roof.</div>
+          </div>
+        </div>
+        
+        <div class="tip-item">
+          <div class="tip-icon red">
+            <i class="fas fa-info-circle"></i>
+          </div>
+          <div class="tip-content">
+            <div class="tip-title">Security Tip</div>
+            <div class="tip-description">We will NEVER ask you to provide your security details such as COT Code or any sensitive details of your account.</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-item settings">
+        <i class="fas fa-cog"></i>
+        <div class="nav-text">Settings</div>
+        <div class="settings-badge"></div>
+      </div>
+      <div class="nav-item" id="nav-notifications">
+        <i class="fas fa-bell"></i>
+        <div class="nav-text">Notifications</div>
+      </div>
+      <div class="nav-item active">
+        <i class="fas fa-home"></i>
+        <div class="nav-text">Home</div>
+      </div>
+      <div class="nav-item" id="nav-support">
+        <i class="fas fa-headset"></i>
+        <div class="nav-text">Support</div>
+      </div>
+      <div class="nav-item" id="nav-logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <div class="nav-text">Logout</div>
+      </div>
+    </div>
+
+    <!-- Coming Soon Modal -->
+    <div class="modal" id="coming-soon-modal">
+      <div class="modal-content">
+        <div class="modal-title">Coming Soon!</div>
+        <div class="modal-message">This feature is currently under development and will be available soon.</div>
+        <button type="button" class="form-button" id="close-modal-btn">Close</button>
+      </div>
+    </div>
+
+    <!-- Overlay for Side Menu -->
+    <div class="overlay" id="overlay"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Get user data from localStorage if available
+      const userString = localStorage.getItem("user");
+      let user = null;
+
+      if (userString) {
+        try {
+          user = JSON.parse(userString);
+
+          // Update user name for card holder
+          const cardHolderElement = document.getElementById("card-holder");
+          if (cardHolderElement && user.name) {
+            // Use last name for card
+            const lastName = user.name.split(" ").pop().toUpperCase();
+            cardHolderElement.textContent = lastName;
+          }
+
+          // Update account number
+          const accountNumberElement = document.getElementById("account-number");
+          if (accountNumberElement && user.accountNumber) {
+            // Only show last 4 digits
+            accountNumberElement.textContent = user.accountNumber.slice(-10);
+          }
+          
+          // Update card number (last 4 digits)
+          const cardNumberElement = document.getElementById("card-number");
+          if (cardNumberElement && user.accountNumber) {
+            const lastFour = user.accountNumber.slice(-4);
+            cardNumberElement.textContent = `4716 XXXX XXXX ${lastFour}`;
+          }
+
+          // Update balance with real data
+          const balanceElement = document.getElementById("balance-display");
+          if (balanceElement && user.balance !== undefined) {
+            balanceElement.textContent = "$" + user.balance.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            });
+          }
+          
+          // Set credit and debit info
+          const totalCreditElement = document.getElementById("total-credit");
+          const totalDebitElement = document.getElementById("total-debit");
+          const creditDateElement = document.getElementById("credit-date");
+          const debitDateElement = document.getElementById("debit-date");
+          
+          if (totalCreditElement && user.balance) {
+            totalCreditElement.textContent = "$" + user.balance.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            });
+          }
+          
+          if (totalDebitElement) {
+            totalDebitElement.textContent = "$0.00";
+          }
+          
+          // Set current month and year for dates
+          const currentDate = new Date();
+          const month = currentDate.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+          const year = currentDate.getFullYear();
+          
+          if (creditDateElement) {
+            creditDateElement.textContent = `${month}. ${year}`;
+          }
+          
+          if (debitDateElement) {
+            debitDateElement.textContent = `${month}. ${year}`;
+          }
+          
+          // Set profile image with first letter of name
+          const profileImage = document.getElementById("profile-image");
+          if (profileImage && user.name) {
+            // Create a canvas to generate an image with the first letter
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = 200;
+            canvas.height = 200;
+            
+            // Draw background
+            context.fillStyle = '#ff0033';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw text
+            context.font = 'bold 100px Arial';
+            context.fillStyle = 'white';
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText(user.name.charAt(0).toUpperCase(), canvas.width/2, canvas.height/2);
+            
+            // Set the canvas as the profile image
+            profileImage.src = canvas.toDataURL();
+          }
+        } catch (e) {
+          console.error("Error parsing user data:", e);
+        }
+      }
+
+      // Handle transfer features
+      const wireTransferFeature = document.getElementById("wire-transfer-feature");
+      const localTransferFeature = document.getElementById("local-transfer-feature");
+      const internalTransferFeature = document.getElementById("internal-transfer-feature");
+      
+      if (wireTransferFeature) {
+        wireTransferFeature.addEventListener("click", () => {
+          window.location.href = "send-money.html";
+        });
+      }
+      
+      if (localTransferFeature) {
+        localTransferFeature.addEventListener("click", () => {
+          window.location.href = "send-money.html";
+        });
+      }
+      
+      if (internalTransferFeature) {
+        internalTransferFeature.addEventListener("click", () => {
+          window.location.href = "send-money.html";
+        });
+      }
+
+      // Handle transactions feature
+      const transactionsFeature = document.getElementById("transactions-feature");
+      const navNotifications = document.getElementById("nav-notifications");
+      
+      if (transactionsFeature) {
+        transactionsFeature.addEventListener("click", () => {
+          window.location.href = "transactions.html";
+        });
+      }
+      
+      if (navNotifications) {
+        navNotifications.addEventListener("click", () => {
+          window.location.href = "transactions.html";
+        });
+      }
+      
+      // Handle logout
+      const navLogout = document.getElementById("nav-logout");
+      if (navLogout) {
+        navLogout.addEventListener("click", () => {
+          localStorage.removeItem("isLoggedIn");
+          localStorage.removeItem("user");
+          window.location.href = "login.html";
+        });
+      }
+      
+      // Handle other menu items
+      const menuItems = document.querySelectorAll(
+        ".menu-item:not(#wire-transfer-feature):not(#local-transfer-feature):not(#internal-transfer-feature):not(#transactions-feature)"
+      );
+      menuItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          document.getElementById("coming-soon-modal").classList.add("active");
+        });
+      });
+      
+      // Handle support nav
+      const navSupport = document.getElementById("nav-support");
+      if (navSupport) {
+        navSupport.addEventListener("click", () => {
+          document.getElementById("coming-soon-modal").classList.add("active");
+        });
+      }
+
+      // Close coming soon modal
+      const closeModalBtn = document.getElementById("close-modal-btn");
+      if (closeModalBtn) {
+        closeModalBtn.addEventListener("click", () => {
+          document.getElementById("coming-soon-modal").classList.remove("active");
+        });
+      }
+    });
+  </script>
+</body>
+</html>
